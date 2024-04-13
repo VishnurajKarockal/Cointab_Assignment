@@ -5,22 +5,18 @@ const { userRouter } = require("./Routes/user.routes");
 const app = express();
 const cors = require("cors");
 const { postRouter } = require("./Routes/post.routes");
-
 app.use(cors());
 app.get("/", (req, res) => {
   res.send("Yeah your cointab backend is working fine!");
 });
 app.use("/users", userRouter);
 app.use("/posts", postRouter);
-
-const port = process.env.PORT || 3000; // Use PORT environment variable if set, otherwise default to 3000
+const port = process.env.port;
 app.listen(port, async () => {
   try {
-    // Test the database connection
-    await connection.query("SELECT 1");
+    connection;
     console.log(`Server is running at port ${port}`);
   } catch (error) {
-    console.error("Unable to connect to the database:", error);
-    process.exit(1); // Exit the process with an error code
+    console.log(error.message);
   }
 });
